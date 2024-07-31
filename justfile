@@ -9,10 +9,10 @@ default:
     @just --list --justfile {{justfile()}}
 
 test-notion:
- cargo run -- --client "Notion" --launcher "notion-app"
+ RUST_LOG="debug" cargo run -- --client "Notion" --launcher "notion-app"
 
 test-brave:
- cargo run -- --client "Brave-browser" --launcher "brave"
+ RUST_LOG="debug" cargo run -- --client "Brave-browser" --launcher "brave"
 
 # run various auditing tools to assure we are legal and safe
 audit:

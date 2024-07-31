@@ -1,40 +1,47 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 
-use serde_json::Value;
+use hyprland::{
+    data::Clients,
+    dispatch::{Dispatch, DispatchType, WindowIdentifier},
+    shared::{Address, HyprData},
+};
 use tracing::instrument;
 
 #[instrument(ret, err)]
-pub fn focus_window(window_to_focus: &Value, active_address: &str) -> Result<()> {
-    let window_address = window_to_focus["address"]
-        .as_str()
-        .context("Window address not found")?;
-    if window_address != active_address {
-        focus_window_by_address(window_address)?;
+pub fn focus_window<T>(window_address_to_focus: &T, active_address: &T) -> Result<()>
+where
+    T: ToString + std::fmt::Debug + PartialEq + std::fmt::Display,
+{
+    if window_address_to_focus != active_address {
+        focus_window_by_address(Address::new(window_address_to_focus))?;
     }
     Ok(())
 }
 
 #[instrument(level = "trace", ret, err)]
-pub fn focus_window_by_address(window_address: &str) -> anyhow::Result<()> {
-    crate::execute_hyprctl(&["dispatch", &format!("focuswindow address:{window_address}")])
+pub fn focus_window_by_address<T>(window_address: T) -> Result<()>
+where
+    T: ToString + std::fmt::Debug,
+{
+    let window_address = Address::new(window_address);
+    Ok(Dispatch::call(DispatchType::FocusWindow(
+        WindowIdentifier::Address(window_address),
+    ))?)
 }
 
 #[instrument(level = "trace", ret, err)]
-pub fn focus_most_recent_window(windows: &[Value], active_address: &str) -> Result<()> {
-    tracing::info!(?windows);
-    if let Some(most_recent_window_different_to_active_window) = windows
+pub fn focus_most_recent_window(active_address: Address) -> Result<()> {
+    let clients = Clients::get()?;
+    if let Some(most_recent_window_different_to_active_window) = clients
         .iter()
-        .filter(|window| window["address"].as_str() != Some(active_address))
-        .min_by_key(|window| {
-            window["focusHistoryID"]
-                .as_i64()
-                .expect("expected focusHistoryID to be an i64")
-        })
+        .filter(|client| client.address != active_address)
+        .min_by_key(|client| client.focus_history_id)
     {
-        let window_address = most_recent_window_different_to_active_window["address"]
-            .as_str()
-            .expect("expected to be able to convert the most recent window address to a string");
-        focus_window_by_address(window_address)?;
+        focus_window_by_address(
+            most_recent_window_different_to_active_window
+                .address
+                .clone(),
+        )?;
     }
     Ok(())
 }

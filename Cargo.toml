@@ -1,7 +1,11 @@
 [package]
 name = "hyprfocus"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Open or focus your apps instantly"
+repository = "https://github.com/liamwh/HyprFocus"
+authors = ["Liam Woodleigh-Hardinge", "liam.woodleigh@gmail.com"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,6 +19,7 @@ tokio = { version = "1", features = ["full"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
 tracing-appender = "0.2.3"
+hyprland = "0.4.0-alpha.2"
 
 
 [lints.rust]

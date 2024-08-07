@@ -42,6 +42,10 @@ bind = CONTROL, N, exec, hyprfocus --client "Notion" --launcher "notion-app"
 
 This would bind the `CTRL+N` key combination to open Notion or focus the most recently focused window of Notion.
 
+## To do
+
+- [ ] Add support for identifying the launcher command of an application by the application name.
+
 ## Installation
 
 Run the following command to install HyprFocus:

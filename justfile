@@ -14,6 +14,9 @@ test-notion:
 test-brave:
  RUST_LOG="debug" cargo run -- --client "Brave-browser" --launcher "brave"
 
+test-get-launcher-cmd:
+ RUST_LOG="debug" cargo run -- get-launcher-cmd --client "Notion"
+
 # run various auditing tools to assure we are legal and safe
 audit:
     cargo deny check advisories bans licenses sources

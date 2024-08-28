@@ -23,6 +23,9 @@
             <img src="https://img.shields.io/badge/License-Apache-success.svg?style=flat-square" alt="Apache License">
         </a>
     </p>
+    <p align="center">
+    <a href="https://github.com/liamwh/hyprfocus"><img src="https://res.cloudinary.com/dbhkh9bkw/image/upload/v1724846579/hyprfocus-logo.webp" alt="HyprFocus"
+            width=50%></a>
 
 HyprFocus is a CLI utility designed for [Hyprland](https://hyprland.org/) that enhances your workflow by managing application focus. It either launches an application or brings its most recently used window to the forefront. If the targeted application is already in focus, HyprFocus cleverly shifts attention to the next most recently used window for that application. This functionality ensures seamless access to your application windows with a single command, helping you maintain peak productivity without breaking your flow.
 

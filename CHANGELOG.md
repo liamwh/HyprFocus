@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2](https://github.com/liamwh/HyprFocus/compare/v1.1.1...v1.1.2) - 2024-09-16
+
+### Other
+
+- update Cargo.lock dependencies
+
 ## [1.1.1](https://github.com/liamwh/HyprFocus/compare/v1.1.0...v1.1.1) - 2024-08-28
 
 ### Other
